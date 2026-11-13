@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The 4 I's of Transformational Leadership</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+/* Layout idea: a 2x2 "stage" of four illustrated quadrants around a central emblem; choosing one opens a split detail view (art left, words right). Single dark theme by choice so the art reads well on a projector. */
+:root {
+  --ink: #14161F;
+  --ink-2: #1E2130;
+  --paper: #F3EEE4;
+  --muted: #B9B4AA;
+  --ii: #1F8A86;   /* Idealized Influence: teal */
+  --im: #E3A23B;   /* Inspirational Motivation: marigold */
+  --is: #3D62D9;   /* Intellectual Stimulation: cobalt */
+  --ic: #D65A6C;   /* Individualized Consideration: rose */
+  --display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --body: "Atkinson Hyperlegible", "Helvetica Neue", Arial, sans-serif;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; }
+body {
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--body);
+  font-size: 18px;
+  line-height: 1.5;
+  overflow: hidden;
+}
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 3px solid var(--paper); outline-offset: 3px; }
+
+.view { position: absolute; inset: 0; transition: opacity .35s ease; }
+[hidden] { display: none !important; }
+
+/* ---------- Home: quadrants ---------- */
+#home { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 6px; padding: 6px; }
+.quad {
+  --c: var(--ii);
+  position: relative; overflow: hidden; border: 0; padding: 0; cursor: pointer;
+  background: var(--c); border-radius: 14px; text-align: left;
+  display: flex; align-items: flex-end;
+}
+.quad .art, .hero-art { position: absolute; inset: 0; }
+.art svg, .hero-art svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.art img, .hero-art img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.quad .art { transition: transform .6s cubic-bezier(.2,.7,.2,1); }
+.quad::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(to top, color-mix(in srgb, var(--ink) 88%, transparent) 0%, color-mix(in srgb, var(--ink) 35%, transparent) 42%, transparent 70%);
+  pointer-events: none;
+}
+.quad:hover .art, .quad:focus-visible .art { transform: scale(1.05); }
+.quad .label { position: relative; z-index: 1; padding: clamp(18px, 3vw, 40px); width: 100%; }
+.quad:nth-child(2) .label, .quad:nth-child(4) .label { text-align: right; }
+.quad .num {
+  font-family: var(--display); font-weight: 800; font-size: 15px; letter-spacing: .14em; text-transform: uppercase;
+  display: inline-block; padding: 4px 12px; border-radius: 999px; background: var(--c); color: var(--ink); margin-bottom: 10px;
+}
+.quad h2 {
+  font-family: var(--display); font-weight: 800; margin: 0; line-height: .98;
+  font-size: clamp(30px, 4.4vw, 68px); letter-spacing: -.02em; text-wrap: balance;
+}
+.quad h2 .cap { color: var(--c); }
+.quad .tag { margin: 8px 0 0; font-size: clamp(16px, 1.5vw, 22px); color: var(--paper); opacity: .9; }
+
+.emblem {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  width: clamp(170px, 19vw, 260px); aspect-ratio: 1; border-radius: 50%;
+  background: var(--ink); border: 6px solid var(--ink); box-shadow: 0 0 0 2px color-mix(in srgb, var(--paper) 25%, transparent);
+  display: grid; place-content: center; text-align: center; z-index: 5; pointer-events: none; padding: 18px;
+}
+.emblem .big { font-family: var(--display); font-weight: 800; font-size: clamp(40px, 4.6vw, 66px); line-height: .9; letter-spacing: -.03em; }
+.emblem .big span:nth-child(1){color:var(--ii)} .emblem .big span:nth-child(2){color:var(--im)}
+.emblem .big span:nth-child(3){color:var(--is)} .emblem .big span:nth-child(4){color:var(--ic)}
+.emblem .t { font-family: var(--display); font-weight: 700; font-size: clamp(12px, 1.05vw, 15px); letter-spacing: .08em; text-transform: uppercase; margin-top: 8px; line-height: 1.25; }
+.emblem .s { font-size: clamp(12px, 1vw, 14px); color: var(--muted); margin-top: 6px; line-height: 1.3; }
+
+/* ---------- Detail ---------- */
+#detail { --c: var(--ii); display: grid; grid-template-columns: 0.82fr 1.18fr; background: var(--ink); }
+.hero { position: relative; overflow: hidden; background: var(--c); }
+.hero-art { animation: drift 18s ease-in-out infinite alternate; }
+@keyframes drift { from { transform: scale(1.02); } to { transform: scale(1.09) translate(-1%, -1%); } }
+.panel { display: flex; flex-direction: column; padding: clamp(16px, 3vh, 36px) clamp(22px, 3.5vw, 56px); overflow-y: auto; border-left: 8px solid var(--c); }
+.topbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+.btn {
+  border: 2px solid color-mix(in srgb, var(--paper) 35%, transparent); background: transparent; border-radius: 999px;
+  padding: 9px 18px; cursor: pointer; font-weight: 700; font-size: 16px; display: inline-flex; align-items: center; gap: 8px;
+  transition: background .2s, border-color .2s;
+}
+.btn:hover { background: color-mix(in srgb, var(--paper) 10%, transparent); border-color: var(--paper); }
+.pager { display: flex; gap: 8px; }
+.dots { display: flex; gap: 8px; align-items: center; }
+.dot { width: 14px; height: 14px; border-radius: 50%; border: 0; padding: 0; cursor: pointer; opacity: .35; }
+.dot[aria-current="true"] { opacity: 1; transform: scale(1.25); }
+.content { margin: auto 0; padding: 14px 0 4px; max-width: 72ch; }
+.kicker { font-family: var(--display); font-weight: 800; letter-spacing: .14em; text-transform: uppercase; font-size: 15px; color: var(--c); margin: 0 0 10px; }
+#d-name { font-family: var(--display); font-weight: 800; font-size: clamp(34px, 3.6vw, 58px); line-height: .95; letter-spacing: -.025em; margin: 0; text-wrap: balance; }
+.equals { display: flex; align-items: baseline; gap: 14px; margin: 12px 0 0; font-size: clamp(20px, 1.9vw, 30px); font-family: var(--display); font-weight: 700; }
+.equals .eq { color: var(--c); font-size: 1.3em; line-height: 1; }
+.motto {
+  margin: 14px 0 0; font-size: clamp(19px, 1.7vw, 26px); font-style: italic; color: var(--paper);
+  padding-left: 18px; border-left: 4px solid var(--c);
+}
+.about { margin: 14px 0 0; font-size: clamp(16px, 1.2vw, 19px); line-height: 1.55; max-width: 60ch; color: color-mix(in srgb, var(--paper) 88%, transparent); }
+.example {
+  margin-top: clamp(16px, 2.4vh, 28px); background: var(--ink-2); border-radius: 16px; overflow: hidden;
+  border-top: 6px solid var(--c); max-width: 68ch; display: grid; grid-template-columns: clamp(120px, 11vw, 170px) 1fr;
+}
+.example .photo { position: relative; background: color-mix(in srgb, var(--c) 35%, var(--ink-2)); min-height: 100%; }
+.example .photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+.example .photo.nophoto { display: none; }
+.example:has(.nophoto) { grid-template-columns: 1fr; }
+.ex-text { padding: clamp(16px, 1.6vw, 24px); }
+.example .lab { font-family: var(--display); font-weight: 800; letter-spacing: .14em; text-transform: uppercase; font-size: 13px; color: var(--muted); }
+.example h3 { font-family: var(--display); font-weight: 800; font-size: clamp(22px, 2vw, 32px); margin: 6px 0 2px; line-height: 1.1; }
+.example .org { color: var(--c); font-weight: 700; font-size: 18px; }
+.example p { margin: 8px 0 0; font-size: clamp(15px, 1.15vw, 18px); line-height: 1.5; }
+.keys { font-size: 13px; color: var(--muted); margin-top: 18px; }
+.keys kbd { font-family: var(--body); border: 1px solid color-mix(in srgb, var(--paper) 30%, transparent); border-radius: 5px; padding: 0 6px; }
+
+/* ---------- Small screens ---------- */
+@media (max-width: 760px) {
+  body { overflow: auto; }
+  .view { position: static; }
+  #home { grid-template-columns: 1fr; grid-template-rows: auto; padding: 8px; gap: 8px; }
+  .quad { min-height: 46vw; height: 240px; }
+  .quad:nth-child(2) .label, .quad:nth-child(4) .label { text-align: left; }
+  .emblem { position: static; transform: none; width: auto; aspect-ratio: auto; border-radius: 14px; order: -1; padding: 20px; border: 0; box-shadow: none; }
+  #detail { grid-template-columns: 1fr; }
+  .hero { height: 42vh; }
+  .panel { border-left: 0; border-top: 8px solid var(--c); overflow: visible; }
+  .example { grid-template-columns: 1fr; }
+  .example .photo { height: 260px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-art { animation: none; }
+  .quad .art, .view { transition: none; }
+}
+</style>
+</head>
+<body>
+
+<main id="home" class="view" aria-label="Choose a trait"></main>
+
+<section id="detail" class="view" hidden aria-live="polite">
+  <div class="hero"><div class="hero-art" id="d-art"></div></div>
+  <div class="panel">
+    <div class="topbar">
+      <button class="btn" id="back" type="button">&#8592; All four I's</button>
+      <div class="dots" id="dots" role="tablist" aria-label="Traits"></div>
+      <div class="pager">
+        <button class="btn" id="prev" type="button" aria-label="Previous trait">&#8592;</button>
+        <button class="btn" id="next" type="button" aria-label="Next trait">&#8594;</button>
+      </div>
+    </div>
+    <div class="content">
+      <p class="kicker" id="d-kicker"></p>
+      <h1 id="d-name"></h1>
+      <p class="equals"><span class="eq">=</span><span id="d-core"></span></p>
+      <p class="motto" id="d-motto"></p>
+      <p class="about" id="d-about"></p>
+      <div class="example">
+        <div class="photo"><img id="d-photo" alt="" onerror="this.parentNode.classList.add('nophoto')"></div>
+        <div class="ex-text">
+          <div class="lab">Example</div>
+          <h3 id="d-person"></h3>
+          <div class="org" id="d-org"></div>
+          <p id="d-desc"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+const TRAITS = [
+  {
+    id: "idealized-influence", color: "--ii",
+    name: "Idealized Influence", core: "Personal conviction", motto: "Walking the talk",
+    about: "Leaders with idealized influence act as role models whose everyday behavior matches the values they talk about. Followers trust and admire them, and they come to adopt those values because they watch the leader live them out, especially when doing so costs the leader something.",
+    person: "Howard Schultz", org: "Starbucks",
+    desc: "Championed ethical sourcing and employee benefits, even at the cost of profits, because he believed that these were ideals worth pursuing. In the late 1980s and early 1990s he extended health insurance and stock options to part-time baristas, practices that were rare in retail, so employees saw his values reflected in his own decisions.",
+    img: "img/idealized-influence.png", imgPos: "60% 50%",
+    photo: "img/Howard Schultz.jpg", photoPos: "49% 25%"
+  },
+  {
+    id: "inspirational-motivation", color: "--im",
+    name: "Inspirational Motivation", core: "Inspiring vision", motto: "Reshaping \u201Cwhat\u2019s possible\u201D",
+    about: "Leaders high in inspirational motivation describe a compelling picture of the future and express real confidence that the group can get there. That vision gives ordinary work a larger meaning and pulls people toward a shared goal they might never have imagined on their own.",
+    person: "Whitney Wolfe Herd", org: "Bumble",
+    desc: "Disrupted online dating by flipping traditional gender norms and building a female-first tech company. Her conviction that women should make the first move won over millions of users, and in 2021 she became the youngest woman to take a U.S. company public, showing that her vision for dating apps could actually be built.",
+    img: "img/inspirational-motivation.png", imgPos: "50% 50%",
+    photo: "img/Whitney Wolfe.jpg", photoPos: "50% 20%"
+  },
+  {
+    id: "intellectual-stimulation", color: "--is",
+    name: "Intellectual Stimulation", core: "Pushing creativity / innovation", motto: "Stay curious",
+    about: "Leaders who provide intellectual stimulation invite followers to question assumptions, including the leader\u2019s own, and to approach old problems from new angles. New ideas are welcomed and mistakes are treated as part of learning, so followers grow into more independent and creative problem solvers.",
+    person: "Sam Altman", org: "OpenAI",
+    desc: "Built OpenAI around ambitious research bets, pushing teams to question assumptions about what AI could do. He favors releasing tools early, as with ChatGPT\u2019s 2022 launch as a free research preview, so that the public and his own teams can experiment with them, find their flaws, and come up with uses no one had planned.",
+    img: "img/intellectual-stimulation.png", imgPos: "50% 50%",
+    photo: "img/Sam Altman.webp", photoPos: "55% 20%"
+  },
+  {
+    id: "individualized-consideration", color: "--ic",
+    name: "Individualized Consideration", core: "Mentorship", motto: "Fostering growth",
+    about: "Leaders who show individualized consideration treat each follower as a person with distinct needs and goals, acting more like a coach than a boss. They listen closely, tailor their support to the individual in front of them, and look for chances to help that person grow, often into a leader in their own right.",
+    person: "Scott Galloway", org: "Author of Notes on Being a Man",
+    desc: "Does personal mentorship with dozens of young men. He urges older men to step up as coaches and mentors, and when he advises a young man he works through that person\u2019s specific situation (his job, his family, his support system) before offering guidance.",
+    img: "img/individualized-consideration.png", imgPos: "50% 50%",
+    photo: "img/Scott Galloway.avif", photoPos: "50% 20%"
+  }
+];
+
+/* Fallback art (shown until the ChatGPT images are added to the img folder). Simple geometric motifs in each trait's color. */
+const P = "#F3EEE4", K = "#14161F";
+const MOTIFS = {
+  "idealized-influence": c => `
+    <svg viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <rect width="600" height="400" fill="${c}"/>
+      <path d="M0 330 Q 300 250 600 300 L600 400 L0 400Z" fill="${K}" opacity=".25"/>
+      ${[[80,330],[150,305],[220,285],[290,268],[360,252],[430,236],[495,218]].map(([x,y],i)=>`<ellipse cx="${x}" cy="${y}" rx="${22-i}" ry="${9-i*.5}" fill="${P}" opacity="${.35+i*.08}"/>`).join("")}
+      <rect x="520" y="120" width="5" height="100" fill="${P}"/><path d="M525 122 L575 138 L525 156Z" fill="${P}"/>
+      <circle cx="470" cy="80" r="46" fill="${P}" opacity=".18"/>
+    </svg>`,
+  "inspirational-motivation": c => `
+    <svg viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <rect width="600" height="400" fill="${c}"/>
+      ${Array.from({length:12},(_,i)=>{const a=Math.PI+i*Math.PI/11;return `<line x1="300" y1="280" x2="${300+Math.cos(a)*420}" y2="${280+Math.sin(a)*420}" stroke="${P}" stroke-width="10" opacity=".22"/>`}).join("")}
+      <circle cx="300" cy="280" r="120" fill="${P}" opacity=".9"/>
+      <rect x="0" y="280" width="600" height="120" fill="${K}" opacity=".85"/>
+      <rect x="0" y="300" width="600" height="6" fill="${c}" opacity=".7"/><rect x="60" y="326" width="480" height="6" fill="${c}" opacity=".45"/><rect x="140" y="352" width="320" height="6" fill="${c}" opacity=".3"/>
+    </svg>`,
+  "intellectual-stimulation": c => `
+    <svg viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <rect width="600" height="400" fill="${c}"/>
+      <circle cx="300" cy="170" r="150" fill="none" stroke="${P}" stroke-width="3" opacity=".25" stroke-dasharray="4 14"/>
+      <circle cx="300" cy="170" r="210" fill="none" stroke="${P}" stroke-width="3" opacity=".15" stroke-dasharray="4 14"/>
+      <path d="M300 70 a80 80 0 0 1 48 144 v34 h-96 v-34 a80 80 0 0 1 48 -144z" fill="${P}"/>
+      <rect x="262" y="256" width="76" height="14" rx="5" fill="${K}" opacity=".8"/><rect x="270" y="276" width="60" height="14" rx="5" fill="${K}" opacity=".8"/>
+      <circle cx="150" cy="90" r="16" fill="${P}" opacity=".6"/><circle cx="470" cy="120" r="10" fill="${P}" opacity=".6"/><rect x="440" y="260" width="34" height="34" fill="${P}" opacity=".45" transform="rotate(20 457 277)"/><path d="M120 270 l26 -44 l26 44z" fill="${P}" opacity=".45"/>
+    </svg>`,
+  "individualized-consideration": c => `
+    <svg viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <rect width="600" height="400" fill="${c}"/>
+      <circle cx="300" cy="400" r="230" fill="${P}" opacity=".14"/>
+      <path d="M300 330 C 300 260 300 220 300 150" stroke="${K}" stroke-width="10" fill="none" opacity=".85"/>
+      <path d="M300 230 C 240 220 210 180 220 140 C 270 150 300 190 300 230Z" fill="${P}"/>
+      <path d="M300 190 C 360 180 390 140 380 100 C 330 110 300 150 300 190Z" fill="${P}" opacity=".85"/>
+      <path d="M180 330 Q 300 380 420 330 L 400 360 Q 300 395 200 360Z" fill="${K}" opacity=".85"/>
+      <circle cx="150" cy="150" r="30" fill="${P}" opacity=".35"/><circle cx="455" cy="230" r="18" fill="${P}" opacity=".35"/>
+    </svg>`
+};
+
+function color(t){ return getComputedStyle(document.documentElement).getPropertyValue(t.color).trim(); }
+function art(t){
+  // Fallback motif underneath; real image on top, removed if it fails to load.
+  return MOTIFS[t.id](color(t)) + `<img src="${encodeURI(t.img)}" alt="" style="object-position:${t.imgPos}" onerror="this.remove()">`;
+}
+
+const home = document.getElementById("home");
+const detail = document.getElementById("detail");
+
+TRAITS.forEach((t, i) => {
+  const b = document.createElement("button");
+  b.className = "quad"; b.type = "button";
+  b.style.setProperty("--c", `var(${t.color})`);
+  b.setAttribute("aria-label", `${t.name}: ${t.core}`);
+  const [w1, ...rest] = t.name.split(" ");
+  b.innerHTML = `<div class="art">${art(t)}</div>
+    <div class="label"><span class="num">I &middot; ${i+1}</span>
+    <h2><span class="cap">I</span>${w1.slice(1)}<br>${rest.join(" ")}</h2>
+    <p class="tag">${t.core}</p></div>`;
+  b.addEventListener("click", () => go(t.id));
+  home.appendChild(b);
+});
+const em = document.createElement("div");
+em.className = "emblem";
+em.innerHTML = `<div class="big"><span>I</span><span>I</span><span>I</span><span>I</span></div>
+  <div class="t">Transformational<br>Leadership</div><div class="s">Traits that transform followers. Can be trained.<br>Pick a trait.</div>`;
+home.appendChild(em);
+
+const dots = document.getElementById("dots");
+TRAITS.forEach((t, i) => {
+  const d = document.createElement("button");
+  d.className = "dot"; d.type = "button"; d.style.background = `var(${t.color})`;
+  d.setAttribute("aria-label", t.name);
+  d.addEventListener("click", () => go(t.id));
+  dots.appendChild(d);
+});
+
+let current = -1;
+function show(id){
+  const i = TRAITS.findIndex(t => t.id === id);
+  if (i < 0) {
+    current = -1; detail.hidden = true; home.hidden = false;
+    document.title = "The 4 I's of Transformational Leadership";
+    return;
+  }
+  const t = TRAITS[i]; current = i;
+  detail.style.setProperty("--c", `var(${t.color})`);
+  document.getElementById("d-art").innerHTML = art(t);
+  document.getElementById("d-kicker").textContent = `The 4 I's · ${i+1} of 4`;
+  document.getElementById("d-name").textContent = t.name;
+  document.getElementById("d-core").textContent = t.core;
+  document.getElementById("d-motto").textContent = t.motto;
+  document.getElementById("d-person").textContent = t.person;
+  document.getElementById("d-org").textContent = t.org;
+  document.getElementById("d-desc").textContent = t.desc;
+  document.getElementById("d-about").textContent = t.about;
+  const ph = document.getElementById("d-photo");
+  ph.parentNode.classList.remove("nophoto");
+  ph.src = encodeURI(t.photo); ph.alt = t.person; ph.style.objectPosition = t.photoPos;
+  [...dots.children].forEach((d, j) => d.setAttribute("aria-current", j === i ? "true" : "false"));
+  home.hidden = true; detail.hidden = false;
+  document.title = `${t.name} · The 4 I's`;
+  window.scrollTo(0, 0);
+}
+function go(id){
+  const h = id ? "#" + id : "";
+  if (location.hash !== h) { if (id) location.hash = id; else history.replaceState(null, "", location.pathname + location.search); }
+  show(id);
+}
+function step(n){ go(TRAITS[(current + n + 4) % 4].id); }
+
+document.getElementById("back").addEventListener("click", () => go(""));
+document.getElementById("prev").addEventListener("click", () => step(-1));
+document.getElementById("next").addEventListener("click", () => step(1));
+window.addEventListener("hashchange", () => show(location.hash.slice(1)));
+document.addEventListener("keydown", e => {
+  if (e.metaKey || e.ctrlKey || e.altKey) return;
+  if (["1","2","3","4"].includes(e.key)) go(TRAITS[+e.key - 1].id);
+  else if (current >= 0 && e.key === "Escape") go("");
+  else if (current >= 0 && e.key === "ArrowRight") step(1);
+  else if (current >= 0 && e.key === "ArrowLeft") step(-1);
+});
+show(location.hash.slice(1));
+</script>
+</body>
+</html>
